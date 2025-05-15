@@ -1,17 +1,17 @@
 mod args;
 mod coveragefilter;
-mod zygosityfilter;
 mod defaultfilter;
-mod qualityfilter;
-mod variantstruct;
 mod hashvariants;
 mod meanvariant;
-use crate::coveragefilter::coveragefilteranalysis;
-use crate::zygosityfilter::zygosityfilteranalysis;
-use crate::defaultfilter::defaultfilteranalysis;
-use crate::qualityfilter::qualityfilteranalysis;
+mod qualityfilter;
+mod variantstruct;
+mod zygosityfilter;
 use crate::args::CommandParse;
 use crate::args::Commands;
+use crate::coveragefilter::coveragefilteranalysis;
+use crate::defaultfilter::defaultfilteranalysis;
+use crate::qualityfilter::qualityfilteranalysis;
+use crate::zygosityfilter::zygosityfilteranalysis;
 use clap::Parser;
 
 /*
@@ -27,21 +27,21 @@ use clap::Parser;
 fn main() {
     let argsparse = CommandParse::parse();
     match &argsparse.command {
-              Commands::DefaultVCFFilter { vcffile } => {
-                        let command = defaultfilteranalysis(vcffile).unwrap();
-                        println!("The folder has been filtered:{}", command);
-              }
-              Commands::CoverageVCFFilter { vcffile, coverage } => {
-                        let command = coveragefilteranalysis(vcffile, *coverage).unwrap();
-                        println!("The folder has been filtered:{}", command);
-              }
-              Commands::QualityVCFFilter { vcffile, quality } => {
-                        let command = qualityfilteranalysis(vcffile, *quality).unwrap();
-                        println!("The folder has been filtered:{}", command);
-              }
-              Commands::ZygosityVCFFilter { vcffile, zygosity } => {
-                        let command = zygosityfilteranalysis(vcffile, zygosity).unwrap();
-                        println!("The folder has been filtered:{}", command);
-              }
+        Commands::DefaultVCFFilter { vcffile } => {
+            let command = defaultfilteranalysis(vcffile).unwrap();
+            println!("The folder has been filtered:{}", command);
+        }
+        Commands::CoverageVCFFilter { vcffile, coverage } => {
+            let command = coveragefilteranalysis(vcffile, &*coverage).unwrap();
+            println!("The folder has been filtered:{}", command);
+        }
+        Commands::QualityVCFFilter { vcffile, quality } => {
+            let command = qualityfilteranalysis(vcffile, &*quality).unwrap();
+            println!("The folder has been filtered:{}", command);
+        }
+        Commands::ZygosityVCFFilter { vcffile, zygosity } => {
+            let command = zygosityfilteranalysis(vcffile, zygosity).unwrap();
+            println!("The folder has been filtered:{}", command);
+        }
     }
 }

@@ -1,8 +1,6 @@
-use std::fs;
-use std::io::{BufReader, BufRead};
-use std::io::Write;
-use std::collections::HashSet;
 use crate::variantstruct::Genomecapture;
+use std::collections::HashSet;
+use std::error::Error;
 
 /*
 
@@ -14,21 +12,20 @@ use crate::variantstruct::Genomecapture;
 
 */
 
-pub fn hashsetref(hashvector:Vec<Genomecapture>) -> Result<HashSet<String>, Box<dyn Error>> {
-          let hashsetref:HashSet<String> = HashSet::new();
-          let hashvector_borrow = hashvector.clone();
-          for i in hashvector_borrow.iter(){
-                    hashsetref.insert(i.generef);
-          }
-          Ok(hashsetref)
+pub fn hashsetref(hashvector: Vec<Genomecapture>) -> Result<HashSet<String>, Box<dyn Error>> {
+    let mut hashsetref: HashSet<String> = HashSet::new();
+    let hashvector_borrow = hashvector;
+    for i in hashvector_borrow.iter() {
+        hashsetref.insert(i.generef.clone());
+    }
+    Ok(hashsetref)
 }
 
-pub fn hashsetalt(hashvector:Vec<Genomecapture>) -> Results<HashSet<String>, Box<dyn Error>>{
-          let hashsetalt:HashSet<String> = HashSet::new();
-          let hashvector_alt = hashvector.clone();
-          for i in hashvector_alt.iter(){
-                    hashsetref.insert(i.alt);
-          }
-          Ok(hashsetalt)
-
+pub fn hashsetalt(hashvector: Vec<Genomecapture>) -> Result<HashSet<String>, Box<dyn Error>> {
+    let mut hashsetalt: HashSet<String> = HashSet::new();
+    let hashvector_alt = hashvector;
+    for i in hashvector_alt.iter() {
+        hashsetalt.insert(i.alt.clone());
+    }
+    Ok(hashsetalt)
 }
