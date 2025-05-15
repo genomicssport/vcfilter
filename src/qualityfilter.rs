@@ -25,7 +25,7 @@ use std::fs;
 
 */
 
-pub fn qualityfilteranalysis(pathfile: &str, coverage: i32) -> Result<String, Box<dyn Error>> {
+pub fn qualityfilteranalysis(pathfile: &str, coverage: &str) -> Result<String, Box<dyn Error>> {
            for i in fs::read_dir(pathfile)? {
                let openfile = i?.path();
                let path_str = openfile.to_str().unwrap();
@@ -114,7 +114,7 @@ pub fn qualityfilteranalysis(pathfile: &str, coverage: i32) -> Result<String, Bo
 
             let mut filteredgenomeanalysis: Vec<Genomecapture> = Vec::new();
             for i in genomeanalysisvcf.iter(){
-                      if i.qual.parse::<i32>().unwrap() == coverage {
+                      if i.qual.parse::<usize>().unwrap() == coverage.parse::<usize>() {
                               filteredgenomeanalysis.push(Genomecapture{
                                             version: i.version.clone(),
                                             filename:i.filename.clone(),

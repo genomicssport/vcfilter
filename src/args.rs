@@ -30,14 +30,14 @@ pub enum Commands {
         /// path to the vcf file
         vcffile: String,
         /// quality of the predicted variant
-        quality: i32,
+        quality: String,
     },
     /// vcf filter according to coverage
     CoverageVCFFilter {
         /// path to the vcf file
         vcffile: String,
         /// coverage of the predicted variant
-        coverage: i32,
+        coverage: String,
     },
     /// vcf filter according to zygosity
     ZygosityVCFFilter {

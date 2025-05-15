@@ -4,6 +4,8 @@ mod zygosityfilter;
 mod defaultfilter;
 mod qualityfilter;
 mod variantstruct;
+mod hashvariants;
+mod meanvariant;
 use crate::coveragefilter::coveragefilteranalysis;
 use crate::zygosityfilter::zygosityfilteranalysis;
 use crate::defaultfilter::defaultfilteranalysis;
