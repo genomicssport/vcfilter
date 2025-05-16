@@ -43,7 +43,7 @@ pub fn qualityfilteranalysis(pathfile: &str, coverage: &str) -> Result<String, B
                 let version = line.replace("#", "");
                 versionfile.push(version);
             }
-            if !line.starts_with("#") {
+            if !line.starts_with("#") && !line.starts_with("CHR") {
                 let linevec = line.split("\t").collect::<Vec<_>>();
                 genomeanalysisvcf.push(Genomecapture {
                     version: versionfile[0].to_string().clone(),
@@ -96,17 +96,18 @@ pub fn qualityfilteranalysis(pathfile: &str, coverage: &str) -> Result<String, B
                     clinvar_rcv: linevec[45].to_string(),
                     clinvar_clinical_significance: linevec[46].to_string(),
                     clinvar_rev_status: linevec[47].to_string(),
-                    clinvar_traitsclinvar_pmids: linevec[48].to_string(),
-                    diseases: linevec[49].to_string(),
-                    disease_ids: linevec[50].to_string(),
-                    geno: linevec[51].to_string(),
-                    qual: linevec[52].to_string(),
-                    geno_qual: linevec[53].to_string(),
-                    genofilter: linevec[54].to_string(),
-                    af: linevec[55].to_string(),
-                    ao: linevec[56].to_string(),
-                    ro: linevec[57].to_string(),
-                    co: linevec[58].to_string(),
+                    clinical_traits: linevec[48].to_string(),
+                    clinvar_traitsclinvar_pmids: linevec[49].to_string(),
+                    diseases: linevec[50].to_string(),
+                    disease_ids: linevec[51].to_string(),
+                    geno: linevec[52].to_string(),
+                    qual: linevec[53].to_string(),
+                    geno_qual: linevec[54].to_string(),
+                    genofilter: linevec[55].to_string(),
+                    af: linevec[56].to_string(),
+                    ao: linevec[57].to_string(),
+                    ro: linevec[58].to_string(),
+                    co: linevec[59].to_string(),
                 });
             }
         }
@@ -166,6 +167,7 @@ pub fn qualityfilteranalysis(pathfile: &str, coverage: &str) -> Result<String, B
                     clinvar_clinical_significance: i.clinvar_clinical_significance.to_string(),
                     clinvar_rev_status: i.clinvar_rev_status.to_string(),
                     clinvar_traitsclinvar_pmids: i.clinvar_traitsclinvar_pmids.to_string(),
+                    clinical_traits: i.clinical_traits.to_string(),
                     diseases: i.diseases.to_string(),
                     disease_ids: i.disease_ids.to_string(),
                     geno: i.geno.to_string(),
@@ -182,8 +184,8 @@ pub fn qualityfilteranalysis(pathfile: &str, coverage: &str) -> Result<String, B
         let writefilename = format!("{}.{}", filerename, "filtered");
         let mut filewrite = File::create(writefilename).expect("file not present");
         writeln!(filewrite, "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
-                      "filename",
                       "version",
+                      "filename",
                       "CHR",
             "START",
             "END",
@@ -245,7 +247,7 @@ pub fn qualityfilteranalysis(pathfile: &str, coverage: &str) -> Result<String, B
             "RO",
             "COV").expect("file not present");
         for i in filteredgenomeanalysis.iter() {
-            writeln!(filewrite, "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}", i.version, i.filename, i.chr, i.start, i.end, i.generef, i.alt, i.effect, i.gene, i.transcript, i.selectcannonical, i.tfbsid, i.tfbsname, i.exonintronnum, i.hgvsc, i.hgvsp, i.cdsdistance, i.cdslen, i.aalen, i.othertranscripts, i.exac_an, i.exac_ac, i.exac_af, i.exac_istarget, i.dnsnp, i.dnsnp_version, i.dbsnp_1tgp_ref_freq, i.dbsnp_1tgp_alt_freq, i.common_1tgp_1perc, i.esp6500siv2_ea_freq, i.esp6500siv2_aa_freq, i.esp6500siv2_all_freq, i.gnomad_af_all, i.gnomad_hom_all, i.gnomad_af_max_pop, i.cadd_score,i.dbscsnv_ab_score, i.dbscsnv_rf_score, i.papi_pred,i.papi_score,i.polyphen_2_pred,i.polyphen_2_score, i.sift_pred, i.sift_score,i.pseeac_rf_pred,i.pseeac_rf_score,i.clinvar_hotspot,i.clinvar_rcv, i.clinvar_clinical_significance, i.clinvar_rev_status, i.clinvar_traitsclinvar_pmids, i.diseases, i.disease_ids, i.geno, i.qual, i.geno_qual, i.genofilter, i.af, i.ao, i.ro,i.co).expect("file not present");
+            writeln!(filewrite, "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}", i.version, i.filename, i.chr, i.start, i.end, i.generef, i.alt, i.effect, i.gene, i.transcript, i.selectcannonical, i.tfbsid, i.tfbsname, i.exonintronnum, i.hgvsc, i.hgvsp, i.cdsdistance, i.cdslen, i.aalen, i.othertranscripts, i.exac_an, i.exac_ac, i.exac_af, i.exac_istarget, i.dnsnp, i.dnsnp_version, i.dbsnp_1tgp_ref_freq, i.dbsnp_1tgp_alt_freq, i.common_1tgp_1perc, i.esp6500siv2_ea_freq, i.esp6500siv2_aa_freq, i.esp6500siv2_all_freq, i.gnomad_af_all, i.gnomad_hom_all, i.gnomad_af_max_pop, i.cadd_score,i.dbscsnv_ab_score, i.dbscsnv_rf_score, i.papi_pred,i.papi_score,i.polyphen_2_pred,i.polyphen_2_score, i.sift_pred, i.sift_score,i.pseeac_rf_pred,i.pseeac_rf_score,i.clinvar_hotspot,i.clinvar_rcv, i.clinvar_clinical_significance, i.clinvar_rev_status, i.clinical_traits,i.clinvar_traitsclinvar_pmids, i.diseases, i.disease_ids, i.geno, i.qual, i.geno_qual, i.genofilter, i.af, i.ao, i.ro,i.co).expect("file not present");
         }
     }
     Ok("The folder has been analyzed".to_string())

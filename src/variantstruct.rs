@@ -7,7 +7,7 @@
  Date: 2025-5-14
 
 */
-
+#[derive(Debug, Clone, PartialOrd, PartialEq)]
 pub struct Genomecapture {
     pub version: String,
     pub filename: String,
@@ -59,6 +59,7 @@ pub struct Genomecapture {
     pub clinvar_rcv: String,
     pub clinvar_clinical_significance: String,
     pub clinvar_rev_status: String,
+    pub clinical_traits: String,
     pub clinvar_traitsclinvar_pmids: String,
     pub diseases: String,
     pub disease_ids: String,

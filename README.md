@@ -16,11 +16,15 @@ vcf filter for human genomics.
 Usage: VcFilter <COMMAND>
 
 Commands:
-  default-vcf-filter   vcf filter according to quality, coverage and zygosity
-  quality-vcf-filter   vcf filter according to quality
-  coverage-vcf-filter  vcf filter according to coverage
-  zygosity-vcf-filter  vcf filter according to zygosity
-  help                 Print this message or the help of the given subcommand(s)
+  default-vcf-filter           vcf filter according to quality, coverage and zygosity
+  quality-vcf-filter           vcf filter according to quality
+  coverage-vcf-filter          vcf filter according to coverage
+  zygosity-vcf-filter          vcf filter according to zygosity
+  variant-default-vcf-filter   vcf filter default quality40, coverage10 and zygosity multi
+  variant-quality-vcf-filter   vcf filter according to quality and variant
+  variant-coverage-vcf-filter  vcf filter according to coverage and variant
+  variant-zygosity-vcf-filter  vcf filter according to zygosity and variant
+  help                         Print this message or the help of the given subcommand(s)
 
 Options:
   -h, --help     Print help
