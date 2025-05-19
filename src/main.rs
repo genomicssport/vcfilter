@@ -10,6 +10,7 @@ mod coveragefilter_with_variant;
 mod qualityfilter_with_variant;
 mod zygosityfilter_with_variant;
 mod defaultfilter_with_variant;
+mod variantstats;
 use crate::args::CommandParse;
 use crate::args::Commands;
 use crate::coveragefilter::coveragefilteranalysis;
