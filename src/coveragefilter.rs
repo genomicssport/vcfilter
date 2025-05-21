@@ -34,7 +34,7 @@ pub fn coveragefilteranalysis(pathfile: &str, coverage: &str) -> Result<String, 
                 let version = line.replace("#", "");
                 versionfile.push(version);
             }
-            if !line.starts_with("#") && !line.starts_with("CHR"){
+            if !line.starts_with("#") && !line.starts_with("CHR") {
                 let linevec = line.split("\t").collect::<Vec<_>>();
                 genomeanalysisvcf.push(Genomecapture {
                     version: versionfile[0].to_string().clone(),
@@ -102,7 +102,7 @@ pub fn coveragefilteranalysis(pathfile: &str, coverage: &str) -> Result<String, 
                 });
             }
         }
-      println!("{:?}", genomeanalysisvcf);
+        println!("{:?}", genomeanalysisvcf);
         let mut filteredgenomeanalysis: Vec<Genomecapture> = Vec::new();
         for i in genomeanalysisvcf.iter() {
             if i.co.parse::<usize>().unwrap() == coverage.parse::<usize>().unwrap() {

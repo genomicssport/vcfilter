@@ -16,7 +16,11 @@ use std::io::{BufRead, BufReader};
 
 */
 
-pub fn variantcoveragefilteranalysis(pathfile: &str, coverage: &str, variant: &str) -> Result<String, Box<dyn Error>> {
+pub fn variantcoveragefilteranalysis(
+    pathfile: &str,
+    coverage: &str,
+    variant: &str,
+) -> Result<String, Box<dyn Error>> {
     for i in fs::read_dir(pathfile)? {
         let openfile = i?.path();
         let path_str = openfile.to_str().unwrap();
@@ -34,7 +38,7 @@ pub fn variantcoveragefilteranalysis(pathfile: &str, coverage: &str, variant: &s
                 let version = line.replace("#", "");
                 versionfile.push(version);
             }
-            if !line.starts_with("#") && !line.starts_with("CHR"){
+            if !line.starts_with("#") && !line.starts_with("CHR") {
                 let linevec = line.split("\t").collect::<Vec<_>>();
                 genomeanalysisvcf.push(Genomecapture {
                     version: versionfile[0].to_string().clone(),
@@ -102,10 +106,12 @@ pub fn variantcoveragefilteranalysis(pathfile: &str, coverage: &str, variant: &s
                 });
             }
         }
-      println!("{:?}", genomeanalysisvcf);
+        println!("{:?}", genomeanalysisvcf);
         let mut filteredgenomeanalysis: Vec<Genomecapture> = Vec::new();
         for i in genomeanalysisvcf.iter() {
-            if i.co.parse::<usize>().unwrap() == coverage.parse::<usize>().unwrap() && i.alt == variant {
+            if i.co.parse::<usize>().unwrap() == coverage.parse::<usize>().unwrap()
+                && i.alt == variant
+            {
                 filteredgenomeanalysis.push(Genomecapture {
                     version: i.version.clone(),
                     filename: i.filename.clone(),
