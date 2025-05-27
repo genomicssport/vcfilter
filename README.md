@@ -1,4 +1,4 @@
-# VcFilter
+# vcfilter
 
 ![](https://github.com/IBCHgenomic/eVaiutilities/blob/main/logo.png)
 
@@ -36,7 +36,4 @@ Options:
 - Project PI and Informal queries: Prof. Luiza Handschuh: luizahan@ibch.poznan.pl.
 - Code related queries: Dr. Gaurav Sablok: gsablok@ibch.poznan.pl.
 
-Gaurav Sablok \
-Instytut Chemii Bioorganicznej Polskiej Akademii Nauk \
-ul. Noskowskiego 12/14 | 61-704, \
-Poznań Poland
+Gaurav Sablok Instytut Chemii Bioorganicznej Polskiej Akademii Nauk ul. Noskowskiego 12/14 | 61-704, Poznań Poland
