@@ -2,7 +2,7 @@
 
 ![](https://github.com/IBCHgenomic/eVaiutilities/blob/main/logo.png)
 
-- population scale variant filter
+- asynchronous population scale variant filter
 
 ```
 vcf filter for human genomics.
@@ -14,7 +14,7 @@ vcf filter for human genomics.
       Email: luizahan@ibch.poznan.pl.
       ************************************************
 
-Usage: VcFilter <COMMAND>
+Usage: vcfilter <COMMAND>
 
 Commands:
   default-vcf-filter           vcf filter according to quality, coverage and zygosity

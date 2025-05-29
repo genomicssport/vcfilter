@@ -1,14 +1,8 @@
-/*
-
- Author Gaurav Sablok
- Instytut Chemii Bioorganicznej
- Polskiej Akademii Nauk
- ul. Noskowskiego 12/14 | 61-704, Poznań
- Date: 2025-5-14
-
-*/
+use crate::hashvariants::{hashsetalt, hashsetref};
+use crate::meanvariant::{meanquality, medianquality};
+use crate::variantstats::statstable;
 use crate::variantstruct::Genomecapture;
-use rayon::*;
+use std::collections::HashSet;
 use std::error::Error;
 use std::fs;
 use std::fs::File;
@@ -181,6 +175,27 @@ pub fn zygosityfilteranalysis(pathfile: &str, zygosity: &str) -> Result<String, 
                 });
             }
         }
+
+        let hashvariant_ref_before_filter: HashSet<String> =
+            hashsetref(genomeanalysisvcf.clone()).unwrap();
+        let hashvariant_alt_before_filter: HashSet<String> =
+            hashsetalt(filteredgenomeanalysis.clone()).unwrap();
+        let _variantstats_before_filter =
+            statstable(genomeanalysisvcf.clone(), &filerename).unwrap();
+        let _variantstats_after_filter =
+            statstable(filteredgenomeanalysis.clone(), &filerename).unwrap();
+
+        let mut variant_ref = File::create(format!("{}.{}", filerename, "ref-unique-variants.txt"))
+            .expect("file not present");
+        let mut variant_alt = File::create(format!("{}.{}", filerename, "alt-unique-variants.txt"))
+            .expect("file not present");
+        for i in hashvariant_ref_before_filter.iter() {
+            writeln!(variant_ref, "{}\n", i).expect("file not found");
+        }
+        for i in hashvariant_alt_before_filter.iter() {
+            writeln!(variant_alt, "{}\n", i).expect("file not found");
+        }
+
         let writefilename = format!("{}.{}", filerename, "filtered");
         let mut filewrite = File::create(writefilename).expect("file not present");
         writeln!(filewrite, "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}",

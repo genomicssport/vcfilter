@@ -2,8 +2,8 @@ use crate::variantstruct::Genomecapture;
 use std::collections::HashMap;
 use std::collections::HashSet;
 use std::error::Error;
-use std::io::Write;
 use std::fs::File;
+use std::io::Write;
 
 /*
 
@@ -15,7 +15,10 @@ use std::fs::File;
 
 */
 
-pub fn statstable(inputvariant: Vec<Genomecapture>) -> Result<String, Box<dyn Error>> {
+pub fn statstable(
+    inputvariant: Vec<Genomecapture>,
+    filename: &str,
+) -> Result<String, Box<dyn Error>> {
     let inputvector: Vec<Genomecapture> = inputvariant.clone();
     let mut veccapture_ref: Vec<String> = Vec::new();
     let mut veccapture_alt: Vec<String> = Vec::new();
@@ -33,8 +36,8 @@ pub fn statstable(inputvariant: Vec<Genomecapture>) -> Result<String, Box<dyn Er
         .iter()
         .map(|x| x.to_string())
         .collect::<HashSet<_>>();
-    let mut outputhashmap_ref: HashMap<(String,String), usize> = HashMap::new();
-    let mut outputhashmap_alt: HashMap<(String,String), usize> = HashMap::new();
+    let mut outputhashmap_ref: HashMap<(String, String), usize> = HashMap::new();
+    let mut outputhashmap_alt: HashMap<(String, String), usize> = HashMap::new();
     for i in hashcapture_ref.iter() {
         for val in inputvector.iter() {
             let inputstring: String = val.generef.to_string();
@@ -43,7 +46,7 @@ pub fn statstable(inputvariant: Vec<Genomecapture>) -> Result<String, Box<dyn Er
             if val.generef == inputstring {
                 count += 1usize;
             }
-            outputhashmap_ref.insert((inputstring,filenameinsert), count);
+            outputhashmap_ref.insert((inputstring, filenameinsert), count);
         }
     }
     for itercapture in hashcapture_alt.iter() {
@@ -54,17 +57,19 @@ pub fn statstable(inputvariant: Vec<Genomecapture>) -> Result<String, Box<dyn Er
             if inputval.alt == isolatedstring {
                 count += 1usize;
             }
-            outputhashmap_alt.insert((isolatedstring,filenameinsert), count);
+            outputhashmap_alt.insert((isolatedstring, filenameinsert), count);
         }
     }
 
-    let mut altstats = File::create("alt-stats").expect("file not present");
-    for (i,val) in outputhashmap_alt.iter() {
-        writeln!(altstats, "{}\t{}\t{}", i.0, i.1, val);
+    let mut altstats =
+        File::create(format!("{}.{}", filename, "alt-stats")).expect("file not present");
+    for (i, val) in outputhashmap_alt.iter() {
+        writeln!(altstats, "{}\t{}\t{}", i.0, i.1, val).expect("file not found");
     }
-    let mut refstats = File::create("ref-stats").expect("file not present");
-    for (i,val) in outputhashmap_ref.iter() {
-        writeln!(refstats, "{}\t{}\t{}", i.0, i.1, val);
+    let mut refstats =
+        File::create(format!("{}.{}", filename, "ref-stats")).expect("file not present");
+    for (i, val) in outputhashmap_ref.iter() {
+        writeln!(refstats, "{}\t{}\t{}", i.0, i.1, val).expect("file not found");
     }
     Ok("The stats for the file has been tabulate".to_string())
 }
