@@ -1,9 +1,9 @@
 use crate::variantstruct::Genomecapture;
 use std::collections::HashMap;
 use std::collections::HashSet;
-use std::error::Error;
 use std::fs::File;
 use std::io::Write;
+use async_std::prelude::*;
 
 /*
 
@@ -18,7 +18,7 @@ use std::io::Write;
 pub fn statstable(
     inputvariant: Vec<Genomecapture>,
     filename: &str,
-) -> Result<String, Box<dyn Error>> {
+) -> Option<String> {
     let inputvector: Vec<Genomecapture> = inputvariant.clone();
     let mut veccapture_ref: Vec<String> = Vec::new();
     let mut veccapture_alt: Vec<String> = Vec::new();
@@ -71,5 +71,5 @@ pub fn statstable(
     for (i, val) in outputhashmap_ref.iter() {
         writeln!(refstats, "{}\t{}\t{}", i.0, i.1, val).expect("file not found");
     }
-    Ok("The stats for the file has been tabulate".to_string())
+    Some("The stats for the file has been tabulate".to_string())
 }

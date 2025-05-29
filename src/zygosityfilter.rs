@@ -1,13 +1,12 @@
 use crate::hashvariants::{hashsetalt, hashsetref};
-use crate::meanvariant::{meanquality, medianquality};
 use crate::variantstats::statstable;
 use crate::variantstruct::Genomecapture;
 use std::collections::HashSet;
-use std::error::Error;
 use std::fs;
 use std::fs::File;
 use std::io::Write;
 use std::io::{BufRead, BufReader};
+use async_std::prelude::*;
 
 /*
 
@@ -19,9 +18,9 @@ use std::io::{BufRead, BufReader};
 
 */
 
-pub fn zygosityfilteranalysis(pathfile: &str, zygosity: &str) -> Result<String, Box<dyn Error>> {
-    for i in fs::read_dir(pathfile)? {
-        let openfile = i?.path();
+pub async fn zygosityfilteranalysis(pathfile: &str, zygosity: &str) -> Option<String> {
+    for i in fs::read_dir(pathfile).ok()? {
+        let openfile = i.ok()?.path();
         let path_str = openfile.to_str().unwrap();
         let fileopen = File::open(path_str).expect("file not found");
         let fileread = BufReader::new(fileopen);
@@ -190,10 +189,10 @@ pub fn zygosityfilteranalysis(pathfile: &str, zygosity: &str) -> Result<String, 
         let mut variant_alt = File::create(format!("{}.{}", filerename, "alt-unique-variants.txt"))
             .expect("file not present");
         for i in hashvariant_ref_before_filter.iter() {
-            writeln!(variant_ref, "{}\n", i).expect("file not found");
+            writeln!(variant_ref, "{}", i).expect("file not found");
         }
         for i in hashvariant_alt_before_filter.iter() {
-            writeln!(variant_alt, "{}\n", i).expect("file not found");
+            writeln!(variant_alt, "{}", i).expect("file not found");
         }
 
         let writefilename = format!("{}.{}", filerename, "filtered");
@@ -265,5 +264,5 @@ pub fn zygosityfilteranalysis(pathfile: &str, zygosity: &str) -> Result<String, 
             writeln!(filewrite, "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}", i.version, i.filename, i.chr, i.start, i.end, i.generef, i.alt, i.effect, i.gene, i.transcript, i.selectcannonical, i.tfbsid, i.tfbsname, i.exonintronnum, i.hgvsc, i.hgvsp, i.cdsdistance, i.cdslen, i.aalen, i.othertranscripts, i.exac_an, i.exac_ac, i.exac_af, i.exac_istarget, i.dnsnp, i.dnsnp_version, i.dbsnp_1tgp_ref_freq, i.dbsnp_1tgp_alt_freq, i.common_1tgp_1perc, i.esp6500siv2_ea_freq, i.esp6500siv2_aa_freq, i.esp6500siv2_all_freq, i.gnomad_af_all, i.gnomad_hom_all, i.gnomad_af_max_pop, i.cadd_score,i.dbscsnv_ab_score, i.dbscsnv_rf_score, i.papi_pred,i.papi_score,i.polyphen_2_pred,i.polyphen_2_score, i.sift_pred, i.sift_score,i.pseeac_rf_pred,i.pseeac_rf_score,i.clinvar_hotspot,i.clinvar_rcv, i.clinvar_clinical_significance, i.clinvar_rev_status, i.clinical_traits, i.clinvar_traitsclinvar_pmids, i.diseases, i.disease_ids, i.geno, i.qual, i.geno_qual, i.genofilter, i.af, i.ao, i.ro,i.co).expect("file not present");
         }
     }
-    Ok("The folder has been analyzed".to_string())
+    Some("The folder has been analyzed".to_string())
 }

@@ -1,9 +1,9 @@
 use clap::{Parser, Subcommand};
 #[derive(Debug, Parser)]
 #[command(
-    name = "VcFilter",
+    name = "vcfilter",
     version = "1.0",
-    about = "vcf filter for human genomics.
+    about = "asynchronous vcf filter for human genomics.
        ************************************************
       Gaurav Sablok, IBCH, PAN, Poznan, Poland,
       https://portal.ichb.pl/laboratory-of-genomics/.

@@ -1,3 +1,4 @@
+/*
 use crate::variantstruct::Genomecapture;
 use std::error::Error;
 
@@ -45,3 +46,4 @@ pub fn medianquality(hashvector: Vec<Genomecapture>) -> Result<usize, Box<dyn Er
     }
     Ok(medianreturn)
 }
+*/

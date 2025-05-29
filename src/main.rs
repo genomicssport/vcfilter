@@ -22,6 +22,8 @@ use crate::qualityfilter_with_variant::variantqualityfilteranalysis;
 use crate::zygosityfilter::zygosityfilteranalysis;
 use crate::zygosityfilter_with_variant::variantzygosityfilteranalysis;
 use clap::Parser;
+use async_std::prelude::*;
+use async_std::task;
 
 /*
 
@@ -37,51 +39,51 @@ fn main() {
     let argsparse = CommandParse::parse();
     match &argsparse.command {
         Commands::DefaultVCFFilter { vcffile } => {
-            let command = defaultfilteranalysis(vcffile).unwrap();
-            println!("The folder has been filtered:{}", command);
+            let command = task::block_on(defaultfilteranalysis(vcffile));
+            println!("The folder has been filtered:{:?}", command);
         }
         Commands::CoverageVCFFilter { vcffile, coverage } => {
-            let command = coveragefilteranalysis(vcffile, &*coverage).unwrap();
-            println!("The folder has been filtered:{}", command);
+            let command =  task::block_on(coveragefilteranalysis(vcffile, &*coverage));
+            println!("The folder has been filtered:{:?}", command);
         }
         Commands::QualityVCFFilter { vcffile, quality } => {
-            let command = qualityfilteranalysis(vcffile, &*quality).unwrap();
-            println!("The folder has been filtered:{}", command);
+            let command = task::block_on(qualityfilteranalysis(vcffile, &*quality));
+            println!("The folder has been filtered:{:?}", command);
         }
         Commands::ZygosityVCFFilter { vcffile, zygosity } => {
-            let command = zygosityfilteranalysis(vcffile, zygosity).unwrap();
-            println!("The folder has been filtered:{}", command);
+            let command = task::block_on(zygosityfilteranalysis(vcffile, zygosity));
+            println!("The folder has been filtered:{:?}", command);
         }
         Commands::VariantCoverageVCFFilter {
             vcffile,
             coverage,
             variant,
         } => {
-            let command = variantcoveragefilteranalysis(vcffile, coverage, variant).unwrap();
+            let command = task::block_on(variantcoveragefilteranalysis(vcffile, coverage, variant));
             println!(
-                "The command has been finished and the file has been written:{}",
+                "The command has been finished and the file has been written:{:?}",
                 command
             );
         }
         Commands::VariantDefaultVCFFilter { vcffile, variant } => {
-            let command = variantdefaultfilteranalysis(vcffile, variant).unwrap();
-            println!("The command has been finished:{}", command);
+            let command = task::block_on(variantdefaultfilteranalysis(vcffile, variant));
+            println!("The command has been finished:{:?}", command);
         }
         Commands::VariantZygosityVCFFilter {
             vcffile,
             zygosity,
             variant,
         } => {
-            let command = variantzygosityfilteranalysis(vcffile, zygosity, variant).unwrap();
-            println!("The command has finished:{}", command);
+            let command = task::block_on(variantzygosityfilteranalysis(vcffile, zygosity, variant));
+            println!("The command has finished:{:?}", command);
         }
         Commands::VariantQualityVCFFilter {
             vcffile,
             quality,
             variant,
         } => {
-            let command = variantqualityfilteranalysis(vcffile, quality, variant).unwrap();
-            println!("The command has been finished:{}", command);
+            let command = task::block_on(variantqualityfilteranalysis(vcffile, quality, variant));
+            println!("The command has been finished:{:?}", command);
         }
     }
 }

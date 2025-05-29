@@ -5,7 +5,7 @@
 - asynchronous population scale variant filter
 
 ```
-vcf filter for human genomics.
+asynchronous vcf filter for human genomics.
        ************************************************
       Gaurav Sablok, IBCH, PAN, Poznan, Poland,
       https://portal.ichb.pl/laboratory-of-genomics/.
