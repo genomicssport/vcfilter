@@ -7,6 +7,8 @@ use std::fs::File;
 use std::io::Write;
 use std::io::{BufRead, BufReader};
 use async_std::prelude::*;
+use plotpy::{Histogram, Plot, StrError};
+use crate::meanvariant::meanquality;
 
 /*
 
@@ -194,8 +196,13 @@ pub async fn coveragefilteranalysis(pathfile: &str, coverage: &str) -> Option<St
             writeln!(variant_alt, "{}", i).expect("file not found");
         }
 
+        let meanvalue_before_filter = meanquality(genomeanalysisvcf.clone()).unwrap();
+        let meanvalue_after_filter = meanquality(filteredgenomeanalysis.clone()).unwrap();
+
         let writefilename = format!("{}.{}", filerename, "filtered");
         let mut filewrite = File::create(writefilename).expect("file not present");
+        writeln!(filewrite, "{}\t{}", "The mean quality for the file before filtering is:", meanvalue_before_filter.to_string());
+        writeln!(filewrite,"{}\t{}", "The mean quality for the file before filtering is:", meanvalue_after_filter.to_string());
         writeln!(filewrite, "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
                       "version",
                       "filename",

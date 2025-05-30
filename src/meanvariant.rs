@@ -1,15 +1,12 @@
-/*
 use crate::variantstruct::Genomecapture;
 use std::error::Error;
 
 /*
-
  Author Gaurav Sablok
  Instytut Chemii Bioorganicznej
  Polskiej Akademii Nauk
  ul. Noskowskiego 12/14 | 61-704, Poznań
  Date: 2025-5-15
-
 */
 
 pub fn meanquality(hashvector: Vec<Genomecapture>) -> Result<usize, Box<dyn Error>> {
@@ -26,6 +23,8 @@ pub fn meanquality(hashvector: Vec<Genomecapture>) -> Result<usize, Box<dyn Erro
     Ok(meanvariant / finallen as usize)
 }
 
+/*
+ for later additionsbut already coded ahead.
 pub fn medianquality(hashvector: Vec<Genomecapture>) -> Result<usize, Box<dyn Error>> {
     let mut medianquality: Vec<usize> = Vec::new();
     let hashvector_borrow = hashvector;
