@@ -2,6 +2,12 @@
 name = "vcfilter"
 version = "0.1.0"
 edition = "2024"
+readme = "README.md"
+license = "MIT"
+authors = ["Gaurav Sablok <gsablok@ibch.poznan.pl>"]
+description = "vcfilter for human genomics"
+homepage = "https://github.com/IBCHgenomic/vcfilter"
+repository = "https://github.com/IBCHgenomic/vcfilter"
 
 [dependencies]
 async-std = "1.13.1"
