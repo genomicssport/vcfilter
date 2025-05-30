@@ -3,7 +3,6 @@ use std::collections::HashMap;
 use std::collections::HashSet;
 use std::fs::File;
 use std::io::Write;
-use async_std::prelude::*;
 
 /*
 
@@ -38,7 +37,7 @@ pub fn statstable(
         .collect::<HashSet<_>>();
     let mut outputhashmap_ref: HashMap<(String, String), usize> = HashMap::new();
     let mut outputhashmap_alt: HashMap<(String, String), usize> = HashMap::new();
-    for i in hashcapture_ref.iter() {
+    for _i in hashcapture_ref.iter() {
         for val in inputvector.iter() {
             let inputstring: String = val.generef.to_string();
             let filenameinsert: String = val.filename.to_string();
@@ -49,7 +48,7 @@ pub fn statstable(
             outputhashmap_ref.insert((inputstring, filenameinsert), count);
         }
     }
-    for itercapture in hashcapture_alt.iter() {
+    for _itercapture in hashcapture_alt.iter() {
         for inputval in inputvector.iter() {
             let isolatedstring: String = inputval.alt.to_string();
             let filenameinsert: String = inputval.filename.to_string();

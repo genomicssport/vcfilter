@@ -22,7 +22,6 @@ use crate::qualityfilter_with_variant::variantqualityfilteranalysis;
 use crate::zygosityfilter::zygosityfilteranalysis;
 use crate::zygosityfilter_with_variant::variantzygosityfilteranalysis;
 use clap::Parser;
-use async_std::prelude::*;
 use async_std::task;
 
 /*

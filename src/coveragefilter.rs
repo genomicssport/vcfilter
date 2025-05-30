@@ -6,8 +6,6 @@ use std::fs;
 use std::fs::File;
 use std::io::Write;
 use std::io::{BufRead, BufReader};
-use async_std::prelude::*;
-use plotpy::{Histogram, Plot, StrError};
 use crate::meanvariant::meanquality;
 
 /*
@@ -28,6 +26,7 @@ pub async fn coveragefilteranalysis(pathfile: &str, coverage: &str) -> Option<St
         let fileread = BufReader::new(fileopen);
         let mut versionfile: Vec<_> = Vec::new();
         let mut genomeanalysisvcf: Vec<Genomecapture> = Vec::new();
+        let mut filteredgenomeanalysis: Vec<Genomecapture> = Vec::new();
         let filerename = path_str.split("/").collect::<Vec<_>>()[1]
             .split(".")
             .collect::<Vec<_>>()[0]
@@ -106,7 +105,6 @@ pub async fn coveragefilteranalysis(pathfile: &str, coverage: &str) -> Option<St
                 });
             }
         }
-        let mut filteredgenomeanalysis: Vec<Genomecapture> = Vec::new();
         for i in genomeanalysisvcf.iter() {
             if i.co.parse::<usize>().unwrap() == coverage.parse::<usize>().unwrap() {
                 filteredgenomeanalysis.push(Genomecapture {
@@ -173,21 +171,18 @@ pub async fn coveragefilteranalysis(pathfile: &str, coverage: &str) -> Option<St
                     ro: i.ro.to_string(),
                     co: i.co.to_string(),
                 });
-            }
-        }
-
         let hashvariant_ref_before_filter: HashSet<String> =
             hashsetref(genomeanalysisvcf.clone()).unwrap();
         let hashvariant_alt_before_filter: HashSet<String> =
             hashsetalt(filteredgenomeanalysis.clone()).unwrap();
         let _variantstats_before_filter =
-            statstable(genomeanalysisvcf.clone(), &filerename).unwrap();
+            statstable(genomeanalysisvcf.clone(), &i.filename.clone()).unwrap();
         let _variantstats_after_filter =
-            statstable(filteredgenomeanalysis.clone(), &filerename).unwrap();
+            statstable(filteredgenomeanalysis.clone(), &i.filename.clone()).unwrap();
 
-        let mut variant_ref = File::create(format!("{}.{}", filerename, "ref-unique-variants.txt"))
+        let mut variant_ref = File::create(format!("{}.{}", i.filename.clone(), "ref-unique-variants.txt"))
             .expect("file not present");
-        let mut variant_alt = File::create(format!("{}.{}", filerename, "alt-unique-variants.txt"))
+        let mut variant_alt = File::create(format!("{}.{}", i.filename.clone(), "alt-unique-variants.txt"))
             .expect("file not present");
         for i in hashvariant_ref_before_filter.iter() {
             writeln!(variant_ref, "{}", i).expect("file not found");
@@ -199,10 +194,10 @@ pub async fn coveragefilteranalysis(pathfile: &str, coverage: &str) -> Option<St
         let meanvalue_before_filter = meanquality(genomeanalysisvcf.clone()).unwrap();
         let meanvalue_after_filter = meanquality(filteredgenomeanalysis.clone()).unwrap();
 
-        let writefilename = format!("{}.{}", filerename, "filtered");
+        let writefilename = format!("{}.{}", &i.filename.clone(), "filtered");
         let mut filewrite = File::create(writefilename).expect("file not present");
-        writeln!(filewrite, "{}\t{}", "The mean quality for the file before filtering is:", meanvalue_before_filter.to_string());
-        writeln!(filewrite,"{}\t{}", "The mean quality for the file before filtering is:", meanvalue_after_filter.to_string());
+        writeln!(filewrite, "{}\t{}", "The mean quality for the file before filtering is:", meanvalue_before_filter.to_string()).expect("file not present");
+        writeln!(filewrite,"{}\t{}", "The mean quality for the file before filtering is:", meanvalue_after_filter.to_string()).expect("file not present");
         writeln!(filewrite, "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
                       "version",
                       "filename",
@@ -270,5 +265,7 @@ pub async fn coveragefilteranalysis(pathfile: &str, coverage: &str) -> Option<St
             writeln!(filewrite, "{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}", i.version, i.filename, i.chr, i.start, i.end, i.generef, i.alt, i.effect, i.gene, i.transcript, i.selectcannonical, i.tfbsid, i.tfbsname, i.exonintronnum, i.hgvsc, i.hgvsp, i.cdsdistance, i.cdslen, i.aalen, i.othertranscripts, i.exac_an, i.exac_ac, i.exac_af, i.exac_istarget, i.dnsnp, i.dnsnp_version, i.dbsnp_1tgp_ref_freq, i.dbsnp_1tgp_alt_freq, i.common_1tgp_1perc, i.esp6500siv2_ea_freq, i.esp6500siv2_aa_freq, i.esp6500siv2_all_freq, i.gnomad_af_all, i.gnomad_hom_all, i.gnomad_af_max_pop, i.cadd_score,i.dbscsnv_ab_score, i.dbscsnv_rf_score, i.papi_pred,i.papi_score,i.polyphen_2_pred,i.polyphen_2_score, i.sift_pred, i.sift_score,i.pseeac_rf_pred,i.pseeac_rf_score,i.clinvar_hotspot,i.clinvar_rcv, i.clinvar_clinical_significance, i.clinvar_rev_status, i.clinical_traits, i.clinvar_traitsclinvar_pmids, i.diseases, i.disease_ids, i.geno, i.qual, i.geno_qual, i.genofilter, i.af, i.ao, i.ro,i.co).expect("file not present");
         }
     }
-    Some("The folder has been analyzed".to_string())
+        }
+    }
+        Some("The folder has been analyzed".to_string())
 }

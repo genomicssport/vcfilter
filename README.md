@@ -2,7 +2,12 @@
 
 ![](https://github.com/IBCHgenomic/eVaiutilities/blob/main/logo.png)
 
-- asynchronous population scale variant filter
+- asynchronous population scale variant filter. It reports stats on the top of the file and gives you the following for each file in the folder:
+- sample1.alt-stats: stats on alt allele
+- sample1.alt-unique-variants.txt: unique alt allele in that vcf to see after filtering which are the variant types present.
+- sample1.filtereds: filtered file according to the variants and coverage or quality or zygosity
+- sample1.ref-stats: stat on ref allele
+- sample1.ref-unique-variants.txt: unique ref allele in that vcf to see after filtering which are the variant types present.
 
 ```
 asynchronous vcf filter for human genomics.
@@ -30,6 +35,11 @@ Commands:
 Options:
   -h, --help     Print help
   -V, --version  Print version
+```
+
+```
+./target/debug/vcfilter sample-files 47
+./target/debug/vcfilter variant-coverage-vcf-filter sample-files 47 A
 ```
 
 - Acknowledgements: MOSAIC platform, developed as part of the ECBiG-MOSAIC project (POIR.04.02.00-00-D017/20), co-financed by the European Regional Development Fund (ERDF) under the Smart Growth Operational Programme 2014-2020, Measure 4.2 for the development of modern research infrastructure in the science sector.
