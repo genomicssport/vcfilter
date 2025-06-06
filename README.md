@@ -9,6 +9,8 @@
 - sample1.ref-stats: stat on ref allele
 - sample1.ref-unique-variants.txt: unique ref allele in that vcf to see after filtering which are the variant types present.
 
+- [Scientific Rust](https://www.youtube.com/watch?app=desktop&v=dru-2Cn-RTQ)
+
 ```
 asynchronous vcf filter for human genomics.
        ************************************************
