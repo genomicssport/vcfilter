@@ -1,5 +1,5 @@
 # vcfilter
-
+![](https://github.com/IBCHgenomic/vcfilter/blob/main/vcfilter.png)
 ![](https://github.com/IBCHgenomic/eVaiutilities/blob/main/logo.png)
 
 - asynchronous population scale variant filter. It reports stats on the top of the file and gives you the following for each file in the folder:
