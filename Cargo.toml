@@ -6,8 +6,8 @@ readme = "README.md"
 license = "MIT"
 authors = ["Gaurav Sablok <gsablok@ibch.poznan.pl>"]
 description = "vcfilter for human genomics"
-homepage = "https://github.com/IBCHgenomic/vcfilter"
-repository = "https://github.com/IBCHgenomic/vcfilter"
+homepage = "https://github.com/genomicssport/vcfilter"
+repository = "https://github.com/genomicssport/vcfilter"
 
 [dependencies]
 async-std = "1.13.1"
