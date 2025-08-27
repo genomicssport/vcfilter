@@ -1,6 +1,6 @@
 [package]
 name = "vcfilter"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 readme = "README.md"
 license = "MIT"
@@ -12,3 +12,4 @@ repository = "https://github.com/IBCHgenomic/vcfilter"
 [dependencies]
 async-std = "1.13.1"
 clap = { version = "4.5.39", features = ["derive"] }
+figlet-rs = "0.1.5"

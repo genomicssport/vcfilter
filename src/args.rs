@@ -10,7 +10,7 @@ use clap::{Parser, Subcommand};
       Email: gsablok@ibch.poznan.pl
       Prof. Luiza Handschuh
       Email: luizahan@ibch.poznan.pl.
-      ************************************************"
+      ************************************************ "
 )]
 pub struct CommandParse {
     /// subcommands for the specific actions

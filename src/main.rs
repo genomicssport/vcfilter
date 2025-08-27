@@ -21,8 +21,9 @@ use crate::qualityfilter::qualityfilteranalysis;
 use crate::qualityfilter_with_variant::variantqualityfilteranalysis;
 use crate::zygosityfilter::zygosityfilteranalysis;
 use crate::zygosityfilter_with_variant::variantzygosityfilteranalysis;
-use clap::Parser;
 use async_std::task;
+use clap::Parser;
+use figlet_rs::FIGfont;
 
 /*
 
@@ -35,6 +36,10 @@ use async_std::task;
 */
 
 fn main() {
+    let standard_font = FIGfont::standard().unwrap();
+    let figure = standard_font.convert("vcFilter");
+    assert!(figure.is_some());
+    println!("{}", figure.unwrap());
     let argsparse = CommandParse::parse();
     match &argsparse.command {
         Commands::DefaultVCFFilter { vcffile } => {
@@ -42,7 +47,7 @@ fn main() {
             println!("The folder has been filtered:{:?}", command);
         }
         Commands::CoverageVCFFilter { vcffile, coverage } => {
-            let command =  task::block_on(coveragefilteranalysis(vcffile, &*coverage));
+            let command = task::block_on(coveragefilteranalysis(vcffile, &*coverage));
             println!("The folder has been filtered:{:?}", command);
         }
         Commands::QualityVCFFilter { vcffile, quality } => {
