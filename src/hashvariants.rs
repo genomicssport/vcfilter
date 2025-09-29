@@ -3,13 +3,9 @@ use std::collections::HashSet;
 use std::error::Error;
 
 /*
-
- Author Gaurav Sablok
- Instytut Chemii Bioorganicznej
- Polskiej Akademii Nauk
- ul. Noskowskiego 12/14 | 61-704, Poznań
- Date: 2025-5-15
-
+Author Gaurav Sablok,
+Email: codeprog@icloud.com
+Date: 2025-5-14
 */
 
 pub fn hashsetref(hashvector: Vec<Genomecapture>) -> Result<HashSet<String>, Box<dyn Error>> {

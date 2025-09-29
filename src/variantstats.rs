@@ -5,19 +5,12 @@ use std::fs::File;
 use std::io::Write;
 
 /*
-
- Author Gaurav Sablok
- Instytut Chemii Bioorganicznej
- Polskiej Akademii Nauk
- ul. Noskowskiego 12/14 | 61-704, Poznań
- Date: 2025-5-21
-
+Author Gaurav Sablok,
+Email: codeprog@icloud.com
+Date: 2025-5-14
 */
 
-pub fn statstable(
-    inputvariant: Vec<Genomecapture>,
-    filename: &str,
-) -> Option<String> {
+pub fn statstable(inputvariant: Vec<Genomecapture>, filename: &str) -> Option<String> {
     let inputvector: Vec<Genomecapture> = inputvariant.clone();
     let mut veccapture_ref: Vec<String> = Vec::new();
     let mut veccapture_alt: Vec<String> = Vec::new();

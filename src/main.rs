@@ -26,13 +26,9 @@ use clap::Parser;
 use figlet_rs::FIGfont;
 
 /*
-
- Author Gaurav Sablok
- Instytut Chemii Bioorganicznej
- Polskiej Akademii Nauk
- ul. Noskowskiego 12/14 | 61-704, Poznań
- Date: 2025-5-14
-
+Author Gaurav Sablok,
+Email: codeprog@icloud.com
+Date: 2025-5-14
 */
 
 fn main() {

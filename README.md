@@ -10,36 +10,34 @@
 - [Scientific Rust](https://www.youtube.com/watch?app=desktop&v=dru-2Cn-RTQ)
 
 ```
-_____   _   _   _
 __   __   ___  |  ___| (_) | | | |_    ___   _ __
 \ \ / /  / __| | |_    | | | | | __|  / _ \ | '__|
-\ V /  | (__  |  _|   | | | | | |_  |  __/ | |
-\_/    \___| |_|     |_| |_|  \__|  \___| |_|
+ \ V /  | (__  |  _|   | | | | | |_  |  __/ | |
+  \_/    \___| |_|     |_| |_|  \__|  \___| |_|
 
 
 asynchronous vcf filter for human genomics.
-************************************************
-Gaurav Sablok, IBCH, PAN, Poznan, Poland,
-https://portal.ichb.pl/laboratory-of-genomics/.
-Email: gsablok@ibch.poznan.pl
-************************************************
+      ************************************************
+      Author Gaurav Sablok,
+      Email: codeprog@icloud.com
+     ************************************************
 
 Usage: vcfilter <COMMAND>
 
 Commands:
-default-vcf-filter           vcf filter according to quality, coverage and zygosity
-quality-vcf-filter           vcf filter according to quality
-coverage-vcf-filter          vcf filter according to coverage
-zygosity-vcf-filter          vcf filter according to zygosity
-variant-default-vcf-filter   vcf filter default quality40, coverage10 and zygosity multi
-variant-quality-vcf-filter   vcf filter according to quality and variant
-variant-coverage-vcf-filter  vcf filter according to coverage and variant
-variant-zygosity-vcf-filter  vcf filter according to zygosity and variant
-help                         Print this message or the help of the given subcommand(s)
+ default-vcf-filter           vcf filter according to quality, coverage and zygosity
+ quality-vcf-filter           vcf filter according to quality
+ coverage-vcf-filter          vcf filter according to coverage
+ zygosity-vcf-filter          vcf filter according to zygosity
+ variant-default-vcf-filter   vcf filter default quality40, coverage10 and zygosity multi
+ variant-quality-vcf-filter   vcf filter according to quality and variant
+ variant-coverage-vcf-filter  vcf filter according to coverage and variant
+ variant-zygosity-vcf-filter  vcf filter according to zygosity and variant
+ help                         Print this message or the help of the given subcommand(s)
 
 Options:
--h, --help     Print help
--V, --version  Print version
+ -h, --help     Print help
+ -V, --version  Print version
 ```
 
 ```

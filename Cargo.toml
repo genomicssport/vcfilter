@@ -1,13 +1,13 @@
 [package]
 name = "vcfilter"
-version = "0.2.0"
+version = "0.3.0"
 edition = "2024"
 readme = "README.md"
 license = "MIT"
-authors = ["Gaurav Sablok <gsablok@ibch.poznan.pl>"]
+authors = ["Gaurav Sablok <codeprog@icloud.com>"]
 description = "vcfilter for human genomics"
-homepage = "https://github.com/genomicssport/vcfilter"
-repository = "https://github.com/genomicssport/vcfilter"
+homepage = "https://github.com/omicscode/vcfilter"
+repository = "https://github.com/omicscode/vcfilter"
 
 [dependencies]
 async-std = "1.13.1"
